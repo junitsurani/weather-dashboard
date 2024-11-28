@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import WeatherInput from './components/WeatherInput';
+import WeatherDisplay from './components/WeatherDisplay';
+import ErrorMessage from './components/ErrorMessage';
+import ErrorBoundary from './components/ErrorBoundary';
+import { fetchWeatherData } from './services/apiService';
+import { transformWeatherData } from './utils/dataTransform';
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const App = () => {
+  const [weather, setWeather] = useState([]);
+  const [error, setError] = useState('');
+
+  const handleSearch = async (city) => {
+    try {
+      setError('');
+      const cachedData = localStorage.getItem(city.toLowerCase());
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+        setWeather((prev) => Array.isArray(prev) ? [...prev, parsedData] : [parsedData]);
+        return;
+      }
+  
+      const data = await fetchWeatherData(city);
+      const transformedData = transformWeatherData(data);
+      setWeather((prev) => Array.isArray(prev) ? [...prev, transformedData] : [transformedData]);
+      localStorage.setItem(city.toLowerCase(), JSON.stringify(transformedData));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <h1>Weather Dashboard</h1>
+      <WeatherInput onSearch={handleSearch} />
+      {error && <ErrorMessage message={error} />}
+      <ErrorBoundary>
+      {weather && <WeatherDisplay weather={weather} />}
+      </ErrorBoundary>
+    </div>
+  );
+};
 
-export default App
+export default App;
