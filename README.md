@@ -1,8 +1,17 @@
-# React + Vite
+# Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+A weather dashboard application built with React and Vite, integrating the OpenWeather API.
 
-Currently, two official plugins are available:
+## Features
+- Fetch current weather by city.
+- Display temperature, humidity, and description.
+- Graceful error handling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
+1. Clone the repository.
+2. Add your OpenWeather API key to `.env`.
+3. Run:
+   ```bash
+   npm install
+   npm run dev
