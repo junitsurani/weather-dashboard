@@ -7,9 +7,9 @@ const WeatherDisplay = ({ weather }) => {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
       {weather.map((entry, index) => (
-        <Card key={index} style={{ minWidth: 300, margin: 10 }}>
+        <Card key={index} style={{ minWidth: 270, margin: 20 }}>
           <CardContent>
             <Typography variant="h5">{entry.city}</Typography>
             <Typography variant="h6">

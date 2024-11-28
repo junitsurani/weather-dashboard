@@ -12,7 +12,7 @@ const WeatherInput = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="weather-input">
+    <form onSubmit={handleSubmit} className="weather-input input-container">
       <input
         type="text"
         placeholder="Enter city name"
