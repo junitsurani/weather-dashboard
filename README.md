@@ -6,7 +6,7 @@ A weather dashboard application built with React and Vite, integrating the OpenW
 ## Features
 - Fetch current weather by city.
 - Display temperature, humidity, and description.
-- Normal Text View or Visualisation provided using chart.js
+- Normal Text View or Visualization provided using chart.js
 - Graceful error handling.
 
 ## Setup
